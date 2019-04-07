@@ -1,0 +1,38 @@
+<!--
+  Generated template for the DemandModelPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>demand-model</ion-title>
+
+    <ion-buttons end>
+      <button ion-button (click)="closeDemandModal()"><ion-icon color="danger" name="close-circle"></ion-icon></button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form action="" method="get" #dForm="ngForm">
+        <ion-list>
+          <ion-input type="hidden" [(ngModel)]="setdemand.itemid" name="itemid" ></ion-input>
+          <ion-item>
+            <ion-label>Select Demand</ion-label>
+            <ion-select [(ngModel)]="setdemand.demand" name="demand" id="demand" placeholder="Select Demand">
+              <ion-option value="">Choose</ion-option>
+              <ion-option *ngFor="let dm of demands" value="{{dm.id}}">{{dm.demand}}</ion-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item>
+            <ion-input type="text" [(ngModel)]="setdemand.remark" name="remark" id="remark" placeholder="Remark"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <button (click)="getCustDemand(setdemand)" ion-button>Submit</button>
+          </ion-item>
+        </ion-list>
+  </form>
+</ion-content>

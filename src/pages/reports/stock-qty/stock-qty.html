@@ -1,0 +1,48 @@
+<!--
+  Generated template for the StockQtyPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>stock-qty</ion-title>
+
+    <ion-buttons end>
+      <button ion-button (click)="closePage('ReportPage')"><ion-icon color="danger" name="close-circle"></ion-icon></button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card>
+    <ion-card-content>
+      <ion-card-title text-center>Stocks Qty</ion-card-title>
+
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th class="text-center">QtyOpeningBalance</th>
+              <th class="text-center">QtyWarehouse</th>
+              <th class="text-center">QtyCounter</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let s of stocks">
+              <td> {{s.id}} </td>
+              <td class="zg"> {{s.name}} </td>
+              <td class="text-right"> {{s.qty_opening_balance}} </td>
+              <td class="text-right"> {{s.qty_warehouse}} </td>
+              <td *ngIf="s.qty_counter == 0" class="qty-empty text-right"> {{s.qty_counter}} </td>
+              <td *ngIf="s.qty_counter <= 5 && s.qty_counter > 0" class="qty-warning text-right"> {{s.qty_counter}} </td>
+              <td *ngIf="s.qty_counter > 5" class="text-right"> {{s.qty_counter}} </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

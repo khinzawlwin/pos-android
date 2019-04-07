@@ -1,0 +1,110 @@
+page-print {
+    .select-printer {
+        background: tomato;
+    }
+    .print-action .label-md {
+        margin: 0 8px 0 0;
+    }
+    .print-action .item-block {
+        min-height: 3.5rem;
+    }
+    .print-action {
+        margin-top: 15px;
+    }
+
+    /* 
+	Generic Styling, for Desktops/Laptops 
+	*/
+	table { 
+		width: 100%; 
+		border-collapse: collapse; 
+	}
+    /* Zebra striping */
+    thead tr:nth-of-type(odd) {
+        background: coral;
+    }
+	tr:nth-of-type(odd) { 
+		background: khaki; 
+    }
+    tbody tr:nth-last-of-type(1) td {
+        border-bottom: 1px solid coral;
+    }
+	th { 
+		background: #333; 
+		color: rgb(219, 79, 79); 
+		font-weight: bold; 
+	}
+	td, th { 
+		padding: 6px; 
+		border: 1px solid #ccc; 
+		text-align: left; 
+    }
+    thead tr.bg-success {
+        background: lightseagreen;
+    }
+    .cart .bg-success .label {
+        margin: 0;
+    }
+    .cart .remove {
+        padding: 0;
+    }
+    .cart .remove a {
+        cursor: pointer;
+    }
+    .cart table {
+        font-size: 11px;
+    }
+    .cart table thead {
+        font-size: 12px;
+    }
+    .cart .text-input-md {
+        margin: 0;
+    }
+    .cart .item-name {
+        min-width: 100px;
+    }
+    .cart .list {
+        margin-bottom: 0;
+    }
+    .cart .item {
+        background: lavender;
+    }
+    .cart .label {
+        margin: 4px 8px 4px 0;
+    }
+    .cart .select {
+        padding: 4px 8px 4px 16px;
+    }
+    .cart .item-block {
+        font-size: 1.4rem;
+        min-height: 3.5rem;
+    }
+    
+    .alert {
+        margin: 0;
+    }
+    .cart .grid,
+    .cart .row {
+        margin-left: -5px;
+        margin-right: -5px;
+    }
+
+    .qty-text {
+        width: 15px;
+        display: inline;
+    }
+    .qty-text .text-input {
+        width: 15px;
+    }
+    .qty-group {
+        width: 50px;
+        padding-left: 3px;
+        padding-right: 3px;
+    }
+    .cart .item.tax {
+        background: transparent;
+    }
+    .cart .tax .label {
+        margin: 0;
+    }
+}

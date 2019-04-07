@@ -1,0 +1,203 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      <img src="/assets/imgs/july14_logo.png" alt="july 14" width="100px;">
+    </ion-title>
+
+    <ion-buttons end>
+      <button ion-button small color="primary" (click)="openKitchen(page)" >Kitchen({{readyCount}})</button>
+      <button ion-button (click)="onLogout()"><ion-icon name="log-out" color="danger"></ion-icon></button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div class="product-filter">
+    <ion-card>
+      <form action="#" method="GET" #sForm="ngForm">
+        <ion-row>
+          <ion-col>
+            <ion-list>
+              <ion-item>
+                <ion-label>Filter Category</ion-label>
+                <ion-select [(ngModel)]="query.category" (ionChange)="onFilter($event)" name="category" placeholder="Select Category">
+                  <ion-option value="">All Category</ion-option>
+                  <ion-option *ngFor="let cat of categories" value="{{cat.id}}">{{cat.title}}</ion-option>
+                </ion-select>
+              </ion-item>
+            </ion-list>
+          </ion-col>
+        </ion-row>
+      </form>
+    </ion-card>
+  </div>
+
+  <div class="product-wapper">
+    <!-- <ion-spinner name="bubbles" color="danger"></ion-spinner> -->
+    <ion-grid>
+      <ion-row>
+        <ion-col col-4 col-md-3 col-sm-3 *ngFor="let p of products">
+          <a (click)="addToCart(p)">
+            <ion-card>
+              <ion-avatar class="img-wapper">
+                <img src="{{this.saleSvc.getImg(p.thumbnail)}}" alt="">
+              </ion-avatar>
+              <ion-card-content>
+                <div class="product-title">{{p.name}}</div>
+                <div class="price">{{p.price}}</div>
+              </ion-card-content>
+            </ion-card>
+          </a>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <div class="cart">
+    <form action="#" method="POST">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <td class="item-name">Item</td>
+            <td>Qty</td>
+            <td>Price</td>
+            <td>Amount</td>
+            <td text-center class="remove">#</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of this.cartSvc.getItems()">
+            <td class="zg"> 
+              <ion-icon (click)="openDemandModal(item.id, item.demand, item.remark)" name="chatboxes" color="secondary" class="demand-icon"></ion-icon>
+              {{item.name}}
+            </td>
+            <td text-center class="qty-group">
+              <ion-icon (click)="updateQtyCart(item, 'm')" name="remove-circle" color="danger"></ion-icon>
+              <ion-input text-center type="text" class="qty-text" id="qty" name="qty" value="{{item.qty}}" (keypress)="numOnly($event)"></ion-input>
+              <ion-icon (click)="updateQtyCart(item, 'p')" name="add-circle" color="secondary"></ion-icon>
+            </td>
+            <td text-right> {{item.price}} </td>
+            <td text-right> {{item.qty * item.price}} </td>
+            <td text-center class="remove">
+              <a (click)="removeItemCart(item)" ion-text color="danger"><ion-icon name="close"></ion-icon></a>
+              
+              <ion-input type="hidden" name="demand" id="demand" value="{{item.demand}}"></ion-input>
+              <ion-input type="hidden" name="remark" id="remark" value="{{item.remark}}"></ion-input>
+            </td>
+          </tr>
+
+          <tr class="empty-cart" *ngIf="!(this.cartSvc.getTotalAmount() > 0)">
+            <td colspan="5" text-center>
+              <p class="alert alert-info" >Your cart is empty!</p>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot *ngIf="(this.cartSvc.getTotalAmount() > 0)">
+          <tr>
+            <td colspan="3" text-right>SubTotal</td>
+            <td text-right> {{this.cartSvc.getTotalAmount()}} </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td colspan="3" text-right>Discount</td>
+            <td>
+              <ion-input text-right type="text" name="discount_amount" [(ngModel)]="order.discount_amount" placeholder="Discount" (keypress)="numOnly($event)" (ionBlur)="discountCal()"></ion-input>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td colspan="3" text-right>
+              <ion-list>
+                <ion-item text-right class="tax">
+                  <ion-label>Tax(5%)</ion-label>
+                  <ion-checkbox name="tax_on_of" [(ngModel)]="isCheckTax" color="primary" (ionChange)="taxOnOff($event)" ></ion-checkbox>
+                </ion-item>
+              </ion-list>
+            </td>
+            <td>
+              <!-- <ion-input text-right type="text" name="tax" value="0" *ngIf="taxCheck == false"></ion-input> -->
+              <ion-input text-right type="text" name="tax" [(ngModel)]="order.tax" readonly></ion-input>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td colspan="3" text-right>Total</td>
+            <td >
+              <ion-input text-right type="text" name="total_amount" [(ngModel)]="order.total_amount" (keypress)="numOnly($event)"></ion-input>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td colspan="3" text-right>Paid</td>
+            <td>
+              <ion-input text-right type="text" name="paid_amount" [(ngModel)]="order.paid_amount" placeholder="Paid" (keypress)="numOnly($event)" (ionBlur)="paidamountCal()"></ion-input>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td colspan="3" text-right>Change</td>
+            <td>
+              <ion-input text-right type="text" name="change_amount" [(ngModel)]="order.change_amount" placeholder="Change" (keypress)="numOnly($event)" (ionBlur)="changeamountCal()"></ion-input>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td colspan="3" text-right>Balance</td>
+            <td>
+              <ion-input text-right type="text" name="balance_amount" [(ngModel)]="order.balance_amount" placeholder="Balance" (keypress)="numOnly($event)"></ion-input>
+            </td>
+            <td></td>
+          </tr>
+        </tfoot>
+      </table>
+
+        <ion-list *ngIf="(this.cartSvc.getTotalAmount() > 0)">
+          <ion-item>
+            <ion-label>Select Table</ion-label>
+            <ion-select name="table_id" [(ngModel)]="order.table_id" placeholder="Choose" required>
+              <ng-container *ngFor="let table of tables">
+                  <ion-option *ngIf="table.status == 0" value="{{table.id}}">{{table.name}}</ion-option>
+                  <ion-option *ngIf="table.status == 1" value="{{table.id}}" ><strong>{{table.name}}*</strong></ion-option>
+              </ng-container>
+            </ion-select>
+          </ion-item>
+        </ion-list>
+
+      <div class="grid">
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <button ion-button (click)="onOrderSubmit(0)" full round>Order</button>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <button ion-button (click)="onOrderSubmit(2)" color="secondary" full round disabled>Confirm</button>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <button ion-button (click)="openOrderModal()" block round outline>Order ({{currentOrderCount}})</button>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <button ion-button (click)="reset()" color="danger" full round>Reset</button>
+            </div>
+          </div>
+        </div>
+        <div class="row" *ngIf="user?.role != 4">
+          <div class="col">
+            <div class="form-group">
+              <button ion-button color="warning" (click)="openReport()" block round>Reports</button>
+            </div>
+          </div>
+          <div class="col">
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</ion-content>

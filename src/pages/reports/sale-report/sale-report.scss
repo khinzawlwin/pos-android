@@ -1,0 +1,46 @@
+page-sale-report {
+    .table-responsive {
+        overflow-x : scroll;
+    }
+    table { 
+		width: 100%; 
+		border-collapse: collapse; 
+	}
+    /* Zebra striping */
+    thead tr:nth-of-type(odd) {
+        background: coral;
+    }
+	tr:nth-of-type(odd) { 
+		background: lightgreen; 
+    }
+    tbody tr:nth-last-of-type(1) td {
+        border-bottom: 1px solid royalblue;
+    }
+	th { 
+		background: lightseagreen; 
+		font-weight: bold; 
+	}
+	td, th { 
+		padding: 6px; 
+        text-align: left; 
+        font-size: 1.3rem;
+    }
+
+    .filter-form .item-md {
+        padding-left: 0;
+    }
+    .filter-form .label-md {
+        margin: 6px 8px 6px 0;
+        font-size: 1.4rem;
+    }
+    .filter-form .datetime-md {
+        padding: 6px 8px 6px 16px;
+        font-size: 1.4rem;
+    }
+    .filter-form .item-block {
+        min-height: 3rem;
+    }
+    .filter-form .col {
+        padding: 0 5px;
+    }
+}

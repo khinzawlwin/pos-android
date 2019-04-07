@@ -1,0 +1,113 @@
+<!--
+  Generated template for the PrintPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>print</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <div class="cart" id="printArea">
+    <form action="#" method="POST">
+      <!-- <ion-title *ngIf="order.tax > 0" text-center>
+        <img src="/assets/imgs/july14_logo.png" alt="july 14" width="100px;">
+      </ion-title> -->
+      <ion-input type="hidden" name="id" [(ngModel)]="order.id"></ion-input>
+      <ion-input type="hidden" name="voucher_no" [(ngModel)]="order.voucher_no"></ion-input>
+      <table class="table table-striped">
+        <thead>
+          <tr class="bg-success">
+            <td colspan="4"> VID : {{order.voucher_no | number:0}} </td>
+          </tr>
+          <tr>
+            <td class="item-name">Item</td>
+            <td>Qty</td>
+            <td>Price</td>
+            <td>Amount</td>
+          </tr>
+        </thead>
+        <tbody id="testArea">
+          <tr *ngFor="let item of this.cartSvc.getItems()">
+            <td class="zg"> 
+              {{item.name}} 
+            </td>
+            <td text-center class="qty-group">
+              {{item.qty}}
+              <!-- <ion-input text-center type="text" class="qty-text" id="qty" name="qty" value="{{item.qty}}" (keypress)="numOnly($event)"></ion-input> -->
+            </td>
+            <td text-right> {{item.price}} </td>
+            <td text-right> {{item.qty * item.price}} </td>
+          </tr>
+        </tbody>
+        <tfoot *ngIf="(this.cartSvc.getTotalAmount() > 0)">
+          <tr>
+            <td colspan="3" text-right>SubTotal</td>
+            <td text-right> {{this.cartSvc.getTotalAmount()}} </td>
+          </tr>
+          <tr>
+            <td colspan="3" text-right>Discount</td>
+            <td text-right> {{order.discount_amount}} </td>
+          </tr>
+          <tr>
+            <td colspan="3" text-right class="tax"> Tax(5%) </td>
+            <td text-right> {{order.tax}} </td>
+          </tr>
+          <tr>
+            <td colspan="3" text-right>Total</td>
+            <td text-right> {{order.total_amount}} </td>
+          </tr>
+          <tr>
+            <td colspan="3" text-right>Paid</td>
+            <td text-right> {{order.paid_amount}} </td>
+          </tr>
+          <tr>
+            <td colspan="3" text-right>Change</td>
+            <td text-right> {{order.change_amount}} </td>
+          </tr>
+          <tr>
+            <td colspan="3" text-right>Balance</td>
+            <td text-right> {{order.balance_amount}} </td>
+          </tr>
+        </tfoot>
+      </table>
+    </form>
+  </div>
+
+  <ion-list class="print-action">
+    <ion-title>Printer Selected:</ion-title>
+    
+    <ion-item>{{selectedPrinter.name}}</ion-item>
+
+    <ion-grid>
+      <ion-item>
+      <ion-row>
+        <ion-col>
+          <button ion-button class="select-printer" full round (click)="listBTDevice()">
+          Select Printer
+          </button>
+        </ion-col>
+        <ion-col>
+          <button ion-button full round (tap)="testConnectPrinter()">
+          Test Connection
+          </button>
+        </ion-col>
+      </ion-row>
+      </ion-item>
+      <ion-item>
+      <ion-row>
+        <ion-col>
+          <button ion-button color="secondary" full round (tap)="testPrinter()">
+          Print Voucher
+          </button>
+        </ion-col>
+      </ion-row>
+      </ion-item>
+    </ion-grid>
+  </ion-list>
+    
+</ion-content>

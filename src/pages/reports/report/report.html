@@ -1,0 +1,42 @@
+<!--
+  Generated template for the ReportPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>report</ion-title>
+
+    <ion-buttons end>
+      <button ion-button (click)="closePage()"><ion-icon color="danger" name="close-circle"></ion-icon></button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <button ion-button (click)="openPage('SalesTotalPage')" color="warning" round full>Sales Total</button>
+      </ion-col>
+      <ion-col>
+        <button ion-button (click)="openPage('SaleReportPage')" color="warning" round full>Sales Report</button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <button ion-button (click)="openPage('SaleDetailPage')" color="warning" round full>Sales Detail</button>
+      </ion-col>
+      <ion-col>
+        <button ion-button (click)="openPage('SaleQtyPage')" color="warning" round full>Sales Qty</button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <button ion-button (click)="openPage('StockQtyPage')" color="warning" round full>Stocks Qty</button>
+      </ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

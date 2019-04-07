@@ -1,0 +1,15 @@
+page-kitchen-display {
+    .item {
+        font-family: 'Zawgyi-One' !important;
+        font-size: 20px
+    }
+    .header .col {
+        background-color:limegreen;
+    }
+    .row:nth-child(odd) {
+        background: greenyellow;
+    }
+    .counter {
+        font-size: 20px;
+    }
+}

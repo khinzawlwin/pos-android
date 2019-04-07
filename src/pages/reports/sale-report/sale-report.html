@@ -1,0 +1,84 @@
+<!--
+  Generated template for the SaleReportPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>sale-report</ion-title>
+
+    <ion-buttons end>
+      <button ion-button (click)="closePage('ReportPage')"><ion-icon color="danger" name="close-circle"></ion-icon></button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card>
+      <form action="" method="GET" (ngSubmit)="onFilter()" class="filter-form">
+        <ion-row>
+          <ion-col size="4">
+            <ion-item >
+              <ion-label>Start Date</ion-label>
+              <ion-datetime displayFormat="YYYY-MM-DDTHH:mm" name="start_date" [(ngModel)]="query.start_date"></ion-datetime>
+            </ion-item>
+          </ion-col>
+          <ion-col size="4">
+            <ion-item>
+              <ion-label>End Date</ion-label>
+              <ion-datetime displayFormat="YYYY-MM-DDTHH:mm" name="end_date" [(ngModel)]="query.end_date"></ion-datetime>
+            </ion-item>
+          </ion-col>
+          <ion-col size="2">
+            <ion-item>
+              <button ion-button color="primary" ><ion-icon name="search"></ion-icon></button>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </form>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+      <ion-card-title text-center>Sales Report</ion-card-title>
+
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>VId</th>
+              <th>Saleby</th>
+              <th>Table</th>
+              <th>Subtotal</th>
+              <th>Discount(%)</th>
+              <th>Tax(5%)</th>
+              <th>Total</th>
+              <th>Paid</th>
+              <th>Change</th>
+              <th>Balance</th>
+              <th>Date/Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let order of orders">
+              <td> {{order?.id}} </td>
+              <td> {{order?.voucher_no | number:0}} </td>
+              <td> {{order?.sale_by}} </td>
+              <td> {{order?.table_id}} </td>
+              <td> {{order?.subtotal}} </td>
+              <td> {{order?.discount_amount}} </td>
+              <td> {{order?.tax}} </td>
+              <td> {{order?.total_amount}} </td>
+              <td> {{order?.paid_amount}} </td>
+              <td> {{order?.change_amount}} </td>
+              <td> {{order?.balance_amount}} </td>
+              <td> {{order?.created_at | date: 'dd/MM/yyyy H:mm:ss'}} </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
